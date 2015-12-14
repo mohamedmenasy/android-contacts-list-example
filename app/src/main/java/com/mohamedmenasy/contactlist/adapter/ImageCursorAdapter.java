@@ -28,6 +28,9 @@ public class ImageCursorAdapter extends SimpleCursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        ImageView contactImageView = (ImageView) view.findViewById(R.id.contact_image_IV);
+        TextView contactTextView = (TextView) view.findViewById(R.id.contact_name_TV);
+
         String contactName = cursor.getString(cursor.getColumnIndex(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                 ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
                 ContactsContract.Contacts.DISPLAY_NAME));
@@ -40,11 +43,11 @@ public class ImageCursorAdapter extends SimpleCursorAdapter {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            ImageView contactImageView = (ImageView) view.findViewById(R.id.contact_image_IV);
             contactImageView.setImageDrawable(Drawable.createFromStream(inputStream, imageUriStr));
+        }else{
+            contactImageView.setImageResource(R.drawable.contactplacholder);
 
         }
-        TextView contactTextView = (TextView) view.findViewById(R.id.contact_name_TV);
         contactTextView.setText(contactName);
 
     }
